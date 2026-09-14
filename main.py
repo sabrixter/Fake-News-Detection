@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from services.fakeornot import extract_search_queries, google_fact_check, fake_or_not
 from services.search import search
 from services.search import predict
-from services.semantic import classify_claim
+from services.semantic import classify_claim, justcheck
 
 app = FastAPI()
 
@@ -13,18 +13,19 @@ async def check_news(claim: str):
     queries = []
     matches = []
     search_results = []
-
+    score = 0
     matches = classify_claim(claim, result.get("claims", []))
 
     queries = extract_search_queries(claim)
+    print("queries",queries)
     genre = predict(claim)
-    search_results = search(queries)
-    score = fake_or_not(claim, search_results, genre)
-
-    # if result is None:
-    #     queries = extract_search_queries(claim)
-    #     search_results = search(queries)
-    # else:
-    #     matches = classify_claim(claim, result.get("claims", []))
+    search_results = search(queries["claims"])
+    
+    score = fake_or_not(claim, search_results, genre, queries)
 
     return {"result": result, "queries": queries, "google fact check matches": matches, "score": score}
+
+
+@app.get("/health") #THIS IS A TEST FUNCTION TO CHECK IF THE NLI MODEL IS WORKING PROPERLY. IT IS NOT USED IN THE MAIN APPLICATION.
+async def health_check():
+    justcheck()
