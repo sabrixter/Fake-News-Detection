@@ -4,11 +4,25 @@ from services.fakeornot import extract_search_queries, google_fact_check, fake_o
 from services.search import search
 from services.search import predict
 from services.semantic import classify_claim, justcheck
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+class ClaimRequest(BaseModel):
+    claim: str
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.post("/check")
-async def check_news(claim: str):
+async def check_news(request: ClaimRequest):
+    claim = request.claim
     result = await google_fact_check(claim)
     queries = []
     matches = []
