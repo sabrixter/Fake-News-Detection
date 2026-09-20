@@ -11,9 +11,13 @@ import numpy as np
 #     }
 # )
 
-nli_model = CrossEncoder(
-    "cross-encoder/nli-deberta-v3-small"
-)
+#removed coz it was too big to be deployed on render
+# nli_model = CrossEncoder(
+#     "cross-encoder/nli-deberta-v3-small"
+# )
+
+nli_model = CrossEncoder("cross-encoder/nli-roberta-base")
+
 sbert_model = SentenceTransformer(
     "sentence-transformers/all-MiniLM-L6-v2"
 )
