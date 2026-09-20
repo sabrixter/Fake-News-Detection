@@ -1,4 +1,7 @@
 print(">>> importing services", flush=True)
+print(">>> before torch", flush=True)
+import torch
+print(">>> after torch", flush=True)
 print(">>> before sentence-transformers", flush=True)
 from sentence_transformers import CrossEncoder, SentenceTransformer
 print(">>> after sentence-transformers", flush=True)
