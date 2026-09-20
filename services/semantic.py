@@ -1,7 +1,11 @@
 print(">>> importing services", flush=True)
+print(">>> before sentence-transformers", flush=True)
 from sentence_transformers import CrossEncoder, SentenceTransformer
+print(">>> after sentence-transformers", flush=True)
 import re
+print(">>> after re", flush=True)
 import numpy as np
+print(">>> after numpy", flush=True)
 
 #This sii the model that I first used for the NLI task but it was not effective considering the use case here demands more tokens.
 # nli_model = CrossEncoder(
