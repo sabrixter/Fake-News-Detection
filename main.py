@@ -1,3 +1,4 @@
+print(">>> main.py started", flush=True)
 from fastapi import FastAPI
 
 from services.fakeornot import extract_search_queries, google_fact_check, fake_or_not

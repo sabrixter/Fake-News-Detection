@@ -1,3 +1,4 @@
+print(">>> importing services", flush=True)
 from sentence_transformers import CrossEncoder, SentenceTransformer
 import re
 import numpy as np
@@ -15,13 +16,13 @@ import numpy as np
 # nli_model = CrossEncoder(
 #     "cross-encoder/nli-deberta-v3-small"
 # )
-
+print(">>> services imported", flush=True)
 nli_model = CrossEncoder("cross-encoder/nli-roberta-base")
 
 sbert_model = SentenceTransformer(
     "sentence-transformers/all-MiniLM-L6-v2"
 )
-
+print(">>> models loaded", flush=True)
 LABELS = [
     "contradiction",
     "entailment",
